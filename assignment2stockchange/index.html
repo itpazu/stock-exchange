@@ -15,29 +15,34 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
-   <style>
-     .search-btn {
-       background-color: red;
-       color: black;
-     }
-   </style>
+    <link rel="stylesheet" href="main.css"/>
+
+      
+    
   </head>
   <body>
-    <div class= "container">
+    <div class="container">
       <div class="input-group mt-4 mb-5">
-        <input type="text" id= "userSearch" class="form-control" placeholder="company name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <input
+          type="text"
+          id="userSearch"
+          class="form-control"
+          placeholder="company name"
+          aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+        />
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary search-btn" type="button">search</button>
+          <button class="btn btn-outline-secondary search-btn" type="button" >
+            search
+          </button>
         </div>
+        <div class="spinner-grow d-none" id="spinner" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        
       </div>
-      <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action active">
-          Cras justo odio
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+      <ul class="list-group list-group-flush" id="list-search">
+      </ul>
       </div>
     </div>
 
@@ -56,7 +61,8 @@
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"
     ></script> -->
-    <script src="stockmarket.js"></script>
+    <script src="main.js"></script>
+    <script src="eventlistener.js"></script>
 
   </body>
 </html>
