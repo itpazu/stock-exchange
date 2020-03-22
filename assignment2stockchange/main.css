@@ -1,4 +1,8 @@
+body {
+  font-family: 'OPen Sans', sans-serif;
+  /* font-size: 28px; */
+}
 .search-btn {
-    background-color: red;
+    background-color: rgba(13, 120, 207, 0.192);
     color: black;
   }

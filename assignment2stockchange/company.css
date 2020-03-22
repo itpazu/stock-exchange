@@ -1,0 +1,79 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  background: rgb(254, 255, 255);
+}
+.bkg-image {
+  width: fit-content;
+  height: fit-content;
+  padding-top: 5%;
+  border-radius: 1%;
+  background: rgb(197, 209, 213);
+  background: linear-gradient(
+    0deg,
+    rgba(197, 209, 213, 1) 0%,
+    rgba(117, 182, 204, 1) 100%
+  );
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.5);
+  /* position: relative; */
+}
+
+/* .bkg-image::after {
+    content: "";
+    background-color: cadetblue;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+    background-repeat: no-repeat; */
+/* } */
+.deflex {
+  display: flex;
+  justify-content: center;
+}
+
+.company-icon {
+  max-height: 60px;
+}
+
+.company-sector,
+.company-name,
+.company-image {
+  margin-right: 3%;
+}
+.company-description {
+  font-size: 16px;
+  width: 50%;
+  text-align: justify;
+}
+.company-link {
+  font-size: 16px;
+}
+
+/* .stock-price {
+    margin-right: 5%;
+    margin-left: 10%;
+} */
+
+.company-stock {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5%;
+}
+
+.div-cont-description {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.canvas-cont {
+  position: relative;
+  height: 80vh;
+  width: auto;
+}

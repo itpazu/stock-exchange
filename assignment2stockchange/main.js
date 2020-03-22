@@ -57,7 +57,7 @@ function presentDataToUser(data) {
     aItem.setAttribute('class', 'link-item');
     aItem.setAttribute('href', `company.html?symbol=${currentItem.symbol}`);
     // aItem.setAttribute('href','company.html')
-    aItem.setAttribute('target','blank')
+    aItem.setAttribute('target', 'blank');
 
     listItem.appendChild(aItem);
 
@@ -67,6 +67,4 @@ function presentDataToUser(data) {
     );
     aItem.appendChild(textItems);
   }
-};
-
-
+}
