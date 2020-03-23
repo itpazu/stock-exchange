@@ -3,8 +3,8 @@ const companySymbol = urlCompany.get('symbol');
 const urlCompanyNew = `https://financialmodelingprep.com/api/v3/company/profile/${companySymbol}`;
 const spinnerTwo = document.querySelector('#spinner-two');
 const canvasChart = document.querySelector('#chart');
-const urlChart = `https://financialmodelingprep.com/api/v3/historical-price-full/${companySymbol}?serietype=line
-`;
+const urlChart = `https://financialmodelingprep.com/api/v3/historical-price-full/${companySymbol}?serietype=line`;
+
 // function fetchCompanyProfile(url) {
 //   fetch(url)
 //     .then(data => data.json())
@@ -44,19 +44,25 @@ function filterArrayChart(chartData) {
     time = new Date(i.date).getTime();
     return time > startDate;
   });
-  displayTable(result);
+  renderLables = [];
+  renderDataSet = [];
+  for (let i = 0; i < result.length; i++) {
+    renderLables.push(result[i].date);
+    renderDataSet.push(result[i].close);
+  }
+  displayTable(renderLables, renderDataSet )
 }
 
-function displayTable(result) {
+function displayTable(labels, datasets) {
   let ctx = document.getElementById('chart');
   let myChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: [],
+      labels: labels,
       datasets: [
         {
           label: '#stock price',
-          data: [],
+          data: datasets,
           backgroundColor: [
             'rgba(211, 180, 242)',
             'rgba(54, 162, 235, 0.2)',
@@ -95,14 +101,12 @@ function displayTable(result) {
       }
     }
   });
-  console.log(myChart);
-  for (let i = 0; i < result.length; i++) {
-    myChart.data.labels.push(result[i].date);
-    myChart.data.datasets[0].data.push(result[i].close);
-  }
-  console.log(myChart.data.labels);
-  console.log(myChart.data.datasets[0].data);
+
+spinnerTwo.classList.add('d-none');
+console.log(spinnerTwo)
 }
+//   console.log(myChart.data.labels);
+//   console.log(myChart.data.datasets[0].data);
 
 const divCompanyDescription = document.querySelector('.company-description');
 const divCompanySector = document.querySelector('.company-sector');
