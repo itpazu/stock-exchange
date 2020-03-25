@@ -3,6 +3,45 @@ body {
   /* font-size: 28px; */
 }
 .search-btn {
-    background-color: rgba(13, 120, 207, 0.192);
-    color: black;
-  }
+  background-color: rgba(13, 120, 207, 0.192);
+  color: black;
+}
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  /* text-align: center; */
+}
+
+#link-item {
+  /* display: flex;
+    width: 100%;
+    justify-content: left;
+    padding-right:30px ;*/
+  font-size: 28px;
+  flex-basis: 50%;
+  font-family: 'Times New Roman', Times, serif;
+  font-family: cursive;
+}
+.div-img {
+  flex-basis: 25%;
+}
+.imgTag {
+  max-height: 25px;
+}
+
+.div-comapny-symbol-stock {
+  display: flex;
+  /* flex-direction: column; */
+  /* justify-content: right; */
+  /* flex-grow: 1; */
+  flex-basis: 25%;
+  align-items: center;
+  text-align: right;
+  justify-content: space-between;
+}
+.div-stock {
+  /* margin-left: 10%; */
+}
+.div-symbol {
+  flex-grow: 0.5;
+}

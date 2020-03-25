@@ -4,13 +4,9 @@ const urlCompanyNew = `https://financialmodelingprep.com/api/v3/company/profile/
 const spinnerTwo = document.querySelector('#spinner-two');
 const canvasChart = document.querySelector('#chart');
 const urlChart = `https://financialmodelingprep.com/api/v3/historical-price-full/${companySymbol}?serietype=line`;
+const backgroundImage = document.querySelector('.bkg-image');
 
-// function fetchCompanyProfile(url) {
-//   fetch(url)
-//     .then(data => data.json())
-//     .then(data => console.log(data));
-
-// }
+hideElement(backgroundImage);
 
 async function fetchCompanyProfile(url) {
   const fetchUrl = await fetch(url);
@@ -23,23 +19,24 @@ async function fetchDataChart(url) {
   return jsonUrlForFetchChart;
 }
 
-window.addEventListener('load', () => {
+window.addEventListener('load', mainEventListenr);
+
+function mainEventListenr() {
   fetchCompanyProfile(urlCompanyNew).then(data => {
-    console.log(data);
     companyProfile(data);
+    showElement(backgroundImage);
   });
 
   fetchDataChart(urlChart).then(chartData => {
     filterArrayChart(chartData);
   });
-});
+}
 
 function filterArrayChart(chartData) {
   let array = chartData.historical;
-  console.log(array);
 
   let startDate = new Date('2015-01-06').getTime();
-  console.log(startDate);
+
   result = array.filter(i => {
     time = new Date(i.date).getTime();
     return time > startDate;
@@ -50,7 +47,7 @@ function filterArrayChart(chartData) {
     renderLables.push(result[i].date);
     renderDataSet.push(result[i].close);
   }
-  displayTable(renderLables, renderDataSet )
+  displayTable(renderLables, renderDataSet);
 }
 
 function displayTable(labels, datasets) {
@@ -102,69 +99,57 @@ function displayTable(labels, datasets) {
     }
   });
 
-spinnerTwo.classList.add('d-none');
-console.log(spinnerTwo)
+  hideElement(spinnerTwo);
 }
-//   console.log(myChart.data.labels);
-//   console.log(myChart.data.datasets[0].data);
 
 const divCompanyDescription = document.querySelector('.company-description');
 const divCompanySector = document.querySelector('.company-sector');
-const divCompanyName = document.querySelector('.company-name');
+const divcompanyName = document.querySelector('.company-name');
 const divCompanyImage = document.querySelector('.container-company-image');
 const divCompanyLink = document.querySelector('.company-link');
 const divStockPrice = document.querySelector('.company-stock');
 
 function companyProfile(data) {
-  let imgCompanyImage = document.createElement('img');
-  imgCompanyImage.setAttribute('class', 'image-company');
-  imgCompanyImage.setAttribute('src', data.profile.image);
-  imgCompanyImage.setAttribute('class', 'company-icon');
+  let imgCompanyImage = ElementCreator('img');
+  attributeSetter(imgCompanyImage, 'class', 'image-company');
+  imgCompanyImage.src = data.profile.image;
+  appendChildren(divCompanyImage, imgCompanyImage);
 
-  divCompanyImage.appendChild(imgCompanyImage);
-  let CompanyName = document.createTextNode(data.profile.companyName);
-  divCompanyName.appendChild(CompanyName);
-  let companySector = document.createTextNode(`(${data.profile.sector})`);
-  divCompanySector.appendChild(companySector);
+  let companyName = createText(data.profile.companyName);
+  appendChildren(divcompanyName, companyName);
+  let companySector = createText(`(${data.profile.sector})`);
+  appendChildren(divCompanySector, companySector);
 
-  let divCompanyStockPrice = document.createElement('div');
-  divCompanyStockPrice.setAttribute('class', 'stock-price');
-  let companyStockPrice = document.createTextNode(
-    `stock price: $${data.profile.price}`
-  );
-  divStockPrice
-    .appendChild(divCompanyStockPrice)
-    .appendChild(companyStockPrice);
+  let divCompanyStockPrice = ElementCreator('div');
+  attributeSetter(divCompanyStockPrice, 'class', 'stock-price');
+  let companyStockPrice = createText(`stock price: $${data.profile.price}`);
+  appendChildren(divStockPrice, divCompanyStockPrice);
+  appendChildren(divCompanyStockPrice, companyStockPrice);
 
-  let divCompanyStockChange = document.createElement('div');
-  divCompanyStockChange.setAttribute('class', 'stock-change');
-  let companyStockChange = document.createTextNode(
-    data.profile.changesPercentage
-  );
+  let divCompanyStockChange = ElementCreator('div');
+  divCompanyStockChange.class = 'stock-change';
+  let companyStockChange = createText(data.profile.changesPercentage);
 
   if (data.profile.changesPercentage.includes('-', 1)) {
     divCompanyStockChange.style.color = 'red';
-  } else if (!data.profile.changesPercentage.includes('-', 1)) {
+  } else if (data.profile.changesPercentage.includes('+', 1)) {
     divCompanyStockChange.style.color = 'green';
   } else {
     divCompanyStockChange.style.color = 'grey';
   }
 
-  divStockPrice
-    .appendChild(divCompanyStockChange)
-    .appendChild(companyStockChange);
+  appendChildren(divStockPrice, divCompanyStockChange);
+  appendChildren(divCompanyStockChange, companyStockChange);
 
-  let companyDescription = document.createTextNode(data.profile.description);
-  divCompanyDescription.appendChild(companyDescription);
+  let companyDescription = createText(data.profile.description);
+  appendChildren(divCompanyDescription, companyDescription);
   let divCompanyLink = document.querySelector('.company-link');
-  let companyLinkATag = document.createElement('a');
-  companyLinkATag.setAttribute('class', 'a-tag-link-company');
-  companyLinkATag.setAttribute('href', data.profile.website);
-  companyLinkATag.setAttribute('target', 'blank');
-  divCompanyLink.appendChild(companyLinkATag);
+  let companyLinkATag = ElementCreator('a');
+  attributeSetter(companyLinkATag, 'class', 'a-tag-link-company');
+  companyLinkATag.href = data.profile.website;
+  companyLinkATag.target = 'blank';
+  appendChildren(divCompanyLink, companyLinkATag);
   let companyWebsiteATag = document.querySelector('.a-tag-link-company');
-  let HomePage = document.createTextNode('visit home-page >>');
-  companyWebsiteATag.appendChild(HomePage);
+  let HomePage = createText('visit home-page >>');
+  appendChildren(companyWebsiteATag, HomePage);
 }
-
-// console.log(result)

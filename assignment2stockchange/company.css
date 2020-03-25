@@ -3,6 +3,7 @@ body {
   font-size: 28px;
   font-weight: bold;
   background: rgb(254, 255, 255);
+  font-family: cursive;
 }
 .bkg-image {
   width: fit-content;
@@ -16,21 +17,8 @@ body {
     rgba(117, 182, 204, 1) 100%
   );
   box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.5);
-  /* position: relative; */
 }
 
-/* .bkg-image::after {
-    content: "";
-    background-color: cadetblue;
-    opacity: 0.3;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;   
-    background-repeat: no-repeat; */
-/* } */
 .deflex {
   display: flex;
   justify-content: center;
@@ -58,6 +46,11 @@ body {
     margin-right: 5%;
     margin-left: 10%;
 } */
+.company-sector {
+  font-size: 20px;
+  transform: translateY(7%);
+  font-style: italic;
+}
 
 .company-stock {
   font-size: 20px;

@@ -12,59 +12,109 @@ const listSearch = document.querySelector('#list-search');
 
 const loadingSpinner = document.querySelector('#spinner');
 
-async function callServerForResults(recordedSearch) {
-  const url = `https://financialmodelingprep.com/api/v3/search?query=${recordedSearch}&limit=10&exchange=NASDAQ`;
+function showElement(element) {
+  element.classList.remove('d-none');
+}
+function hideElement(element) {
+  element.classList.add('d-none');
+}
+
+// this function was called by the eventlistner- aftermthe user typed his search clicked search
+/*returns data jasoned goes back to the eventlistener were subsequent steps are defined*/
+
+async function callServerForResults(url) {
   const serverResult = await fetch(url);
   const dataJson = await serverResult.json();
-  return dataJson; /*returns data jasoned*/
+  return dataJson;
 }
-// event listener - when clicking btn
 
-// searchBtn.addEventListener('click', () => {
-//   // shows spinner
-//   loadingSpinner.classList.remove('d-none');
-//   // clean previous list (if any)
-//   listSearch.innerHTML = '';
-//   // stores user's search input
-//   const recordedSearch = userSearch.value;
-//   // calls function which fetches info and JSON it
-//   callServerForResults(recordedSearch)
-//     .then(data => {
-//       // then when async function reolves, calls a function which manipulates the data
-//       presentDataToUser(data);
-//       // and makes spinner disappear
-//       loadingSpinner.classList.add('d-none');
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-// });
+function presentDataToUser(arrayCompanyDetails) {
+  let listItem = ElementCreator('li');
+  attributeSetter(listItem, 'li', 'list-item');
+  attributeSetter(listItem, 'class', 'list-group-item');
 
-// iterationg over the array for fetching name and symbol
-function presentDataToUser(data) {
-  for (let currentItem of data) {
-    // adding <li>
-    let listItem = document.createElement('li');
-    listItem.id = 'list-item';
-    listItem.setAttribute(
-      'class',
-      'list-group-item'
-    ); /*bootstrap class to li elements*/
-    listSearch.appendChild(listItem);
-    // adding <a>
-    let aItem = document.createElement('a');
-    aItem.id = 'link-item';
-    aItem.setAttribute('class', 'link-item');
-    aItem.setAttribute('href', `company.html?symbol=${currentItem.symbol}`);
-    // aItem.setAttribute('href','company.html')
-    aItem.setAttribute('target', 'blank');
+  appendChildren(listSearch, listItem);
+  let divImg = ElementCreator('div');
+  attributeSetter(divImg, 'class', 'div-img');
 
-    listItem.appendChild(aItem);
+  appendChildren(listItem, divImg);
+  let imgItem = ElementCreator('img');
+  attributeSetter(imgItem, 'class', 'imgTag');
+  attributeSetter(imgItem, 'src', arrayCompanyDetails[0].secondFetch.image);
+  appendChildren(divImg, imgItem);
 
-    // printing company name and symbol
-    let textItems = document.createTextNode(
-      `${currentItem.name} (${currentItem.symbol})`
-    );
-    aItem.appendChild(textItems);
+  // adding <a>
+  let aItem = ElementCreator('a');
+  aItem.id = 'link-item';
+  aItem.classList = 'link-item';
+  aItem.href = `company.html?symbol=${arrayCompanyDetails[0].symbol}`;
+
+  aItem.target = 'blank';
+  appendChildren(listItem, aItem);
+
+  let divArrayItem = ElementCreator('div');
+  attributeSetter(divArrayItem, 'class', 'company-info-wrapper');
+  appendChildren(aItem, divArrayItem);
+
+  let divCompanyName = ElementCreator('div');
+  attributeSetter(divCompanyName, 'class', 'div-company');
+  appendChildren(divArrayItem, divCompanyName);
+
+  let companyName = createText(
+    `${arrayCompanyDetails[0].secondFetch.companyName} `
+  );
+  appendChildren(divCompanyName, companyName);
+
+  let divCompanySymbolAndStockChange = ElementCreator('div');
+  attributeSetter(
+    divCompanySymbolAndStockChange,
+    'class',
+    'div-comapny-symbol-stock'
+  );
+  appendChildren(listItem, divCompanySymbolAndStockChange);
+
+  let divcompanySymbol = ElementCreator('div');
+  attributeSetter(divcompanySymbol, 'class', 'div-symbol');
+  appendChildren(divCompanySymbolAndStockChange, divcompanySymbol);
+  let companySymbol = createText(`(${arrayCompanyDetails[0].symbol}) `);
+  appendChildren(divcompanySymbol, companySymbol);
+
+  let divcompanyStockChange = ElementCreator('div');
+  attributeSetter(divcompanyStockChange, 'class', 'div-stock');
+  appendChildren(divCompanySymbolAndStockChange, divcompanyStockChange);
+  let companyStock = createText(
+    `${arrayCompanyDetails[0].secondFetch.changesPercentage} `
+  );
+  appendChildren(divCompanySymbolAndStockChange, divcompanyStockChange);
+  appendChildren(divcompanyStockChange, companyStock);
+  changeColorForStockChange(
+    arrayCompanyDetails[0].secondFetch.changesPercentage,
+    divcompanyStockChange
+  );
+}
+
+function ElementCreator(element) {
+  return document.createElement(element);
+}
+
+function attributeSetter(any, attributeKey, attributeValue) {
+  any.setAttribute(attributeKey, attributeValue);
+}
+
+function createText(text) {
+  return document.createTextNode(text);
+}
+
+function appendChildren(parent, child) {
+  parent.appendChild(child);
+}
+
+function changeColorForStockChange(companyStock, div) {
+  if (companyStock.includes('+', 1)) {
+    div.style.color = 'green';
+  } else if (companyStock.includes('-', 1)) {
+    div.style.color = 'red';
+  } else {
+    div.style.color = 'grey';
   }
 }
