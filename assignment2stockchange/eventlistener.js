@@ -43,3 +43,7 @@ async function createUrlForFirstFetch() {
 function clearElement(element) {
   element.innerHTML = '';
 }
+
+// window.addEventListener('load', new Marquee(marquee));
+
+

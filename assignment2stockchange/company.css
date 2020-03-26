@@ -4,6 +4,7 @@ body {
   font-weight: bold;
   background: rgb(254, 255, 255);
   font-family: cursive;
+  background-color: rgb(240, 240, 240);
 }
 .bkg-image {
   width: fit-content;
@@ -13,7 +14,7 @@ body {
   background: rgb(197, 209, 213);
   background: linear-gradient(
     0deg,
-    rgba(197, 209, 213, 1) 0%,
+    rgb(136, 145, 148) 0%,
     rgba(117, 182, 204, 1) 100%
   );
   box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.5);
@@ -22,6 +23,10 @@ body {
 .deflex {
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: rgb(51, 52, 53);
+  white-space: wrap;
 }
 
 .company-icon {
@@ -38,6 +43,8 @@ body {
   width: 50%;
   text-align: justify;
 }
+
+
 .company-link {
   font-size: 16px;
 }
