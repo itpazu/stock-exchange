@@ -21,9 +21,6 @@ body {
   border-radius: 20%;
 }
 
-.user-search {
-  border-radius: 5%;
-}
 .list-group-item {
   display: flex;
   justify-content: space-between;
@@ -81,7 +78,7 @@ body {
   text-align: center;
   height: auto;
   font-family: cursive;
-  transform: translateX(100%);
+  /* transform: translateX(100%); */
 
 }
 
@@ -92,6 +89,7 @@ body {
   padding-right: 10px;
   flex-shrink: 0;
   color: black;
+  /* float: left; */
 }
 
 @keyframes marquee-div {

@@ -44,6 +44,4 @@ function clearElement(element) {
   element.innerHTML = '';
 }
 
-// window.addEventListener('load', new Marquee(marquee));
-
-
+window.addEventListener('load', new Marquee(marquee));

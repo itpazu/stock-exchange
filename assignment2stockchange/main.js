@@ -19,38 +19,27 @@ function showElement(element) {
 function hideElement(element) {
   element.classList.add('d-none');
 }
+// console.log(marquee)
+// window.addEventListener('load', new Marquee(marquee);
 
-window.addEventListener('load', fetchMarqueeInput);
+// async function fetchMarqueeInput() {
+//   let urlMarquee =
+//     'https://financialmodelingprep.com/api/v3/stock/real-time-price';
+//   let stockPriceData = await callServerForResults(urlMarquee);
+//   let stockPriceDataSliced = stockPriceData.stockList.slice(0, 50);
+//   prepareMarqueeData(stockPriceDataSliced);
+// }
 
-async function fetchMarqueeInput() {
-  let urlMarquee =
-    'https://financialmodelingprep.com/api/v3/stock/real-time-price';
-  let stockPriceData = await callServerForResults(urlMarquee);
-  let stockPriceDataSliced = stockPriceData.stockList.slice(0, 50);
-  console.log(stockPriceDataSliced);
-  prepareMarqueeData(stockPriceDataSliced);
-}
+// function prepareMarqueeData(data) {
+//   data.forEach(element => {
+//     let divElementMarquee = ElementCreator('li');
+//     divElementMarquee.classList = 'li-marquee-item';
+//     appendChildren(marquee, divElementMarquee);
+//     divElementMarquee.innerHTML = `${element.symbol}  <span style="color: green"> ${element.price}</span>`;
 
-function prepareMarqueeData(data) {
-  let ValuesMarquee = [];
-  data.forEach(element => {
-    ValuesMarquee.push(Object.values(element));
-  });
-  console.log(ValuesMarquee);
-  presentMarqueeData(ValuesMarquee);
-}
+//   });
 
-function presentMarqueeData(valuePair) {
-  valuePair.forEach(valuePairElement => {
-    let divElementMarquee = ElementCreator('li');
-    divElementMarquee.classList = 'li-marquee-item';
-    appendChildren(marquee, divElementMarquee);
-
-    divElementMarquee.innerHTML = `${valuePairElement[0]}  <span style="color: green"> ${valuePairElement[1]}</span>`;
-    // let marqueeText = createText(`${valuePairElement[0]}: ${valuePairElement[1]}`)
-    // appendChildren(divElementMarquee, marqueeText)
-  });
-}
+// }
 
 // this function was called by the eventlistner- aftermthe user typed his search clicked search
 /*returns data jasoned goes back to the eventlistener were subsequent steps are defined*/

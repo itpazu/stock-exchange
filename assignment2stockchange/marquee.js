@@ -1,39 +1,40 @@
-// class Marquee {
-// constructor(marquee) {
-//   this.marquee = marquee
-//   this.valuesMarquee = []
-//   this.startTheMarquee()
-// }
+class Marquee {
+  constructor(HTMLelement) {
+    this.urlMarquee =
+      'https://financialmodelingprep.com/api/v3/stock/real-time-price';
+    this.divMarquee = HTMLelement;
+    this.fetchMarqueeInput(this.urlMarquee);
+  }
+  async fetchMarqueeInput(url) {
+    let stockPriceData = await this.callServerForResults(url);
+    let stockPriceDataSliced = stockPriceData.stockList.slice(0, 50);
+    this.prepareMarqueeData(stockPriceDataSliced);
+  }
 
-// elementCreator(element) {
-//   return document.createElement(element);
-// }
+  async callServerForResults(url) {
+    const serverResult = await fetch(url);
+    const dataJson = await serverResult.json();
+    return dataJson;
+  }
 
-// appendChildren(parent, child) {
-//   parent.appendChild(child);
-// }
+  prepareMarqueeData(data) {
+    data.forEach(element => {
+      let divElementMarquee = this.ElementCreator('li');
+      console.log(divElementMarquee);
+      divElementMarquee.classList = 'li-marquee-item';
+      this.appendChildren(this.divMarquee, divElementMarquee);
+      divElementMarquee.innerHTML = `${element.symbol}  <span style="color: green"> ${element.price}</span>`;
+    });
+  }
+  ElementCreator(element) {
+    return document.createElement(element);
+  }
 
-// async fetchMarqueeInput() {
-//   let urlMarquee = 'https://financialmodelingprep.com/api/v3/stock/real-time-price'
-//   let stockPriceData = await callServerForResults(urlMarquee) 
-//   let stockPriceDataSliced = stockPriceData.stockList.slice(0, 50)
-//   console.log(stockPriceDataSliced)
-//   this.valuesMarquee = stockPriceDataSliced
-//   this.presentMarqueeData(stockPriceDataSliced)
-// }
+  createText(text) {
+    return document.createTextNode(text);
+  }
 
-// presentMarqueeData() {
-//   console.log(this.valuesMarquee)
-//   this.valuesMarquee.forEach(element => {
-//   let divElementMarquee = this.elementCreator('li')
-//   divElementMarquee.classList= 'li-marquee-item';
-//   divElementMarquee.innerHTML =`${element.symbol} <span style="color: green">${element.price}</span>` 
-//   this.appendChildren(this.marquee, divElementMarquee)
-//   })
-// }
-
-// async startTheMarquee(){
-//   await this.fetchMarqueeInput()
-// }
-
-// }
+  appendChildren(parent, child) {
+    parent.appendChild(child);
+  }
+}
