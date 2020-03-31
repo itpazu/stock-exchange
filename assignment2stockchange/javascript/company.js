@@ -111,7 +111,7 @@ const divStockPrice = document.querySelector('.company-stock');
 
 function companyProfile(data) {
   let imgCompanyImage = ElementCreator('img');
-  attributeSetter(imgCompanyImage, 'class', 'image-company');
+  imgCompanyImage.classList = 'image-company';
   imgCompanyImage.src = data.profile.image;
   appendChildren(divCompanyImage, imgCompanyImage);
 
@@ -121,13 +121,13 @@ function companyProfile(data) {
   appendChildren(divCompanySector, companySector);
 
   let divCompanyStockPrice = ElementCreator('div');
-  attributeSetter(divCompanyStockPrice, 'class', 'stock-price');
+  divCompanyStockPrice.classList = 'stock-price';
   let companyStockPrice = createText(`stock price: $${data.profile.price}`);
   appendChildren(divStockPrice, divCompanyStockPrice);
   appendChildren(divCompanyStockPrice, companyStockPrice);
 
   let divCompanyStockChange = ElementCreator('div');
-  divCompanyStockChange.class = 'stock-change';
+  divCompanyStockChange.classList = 'stock-change';
   let companyStockChange = createText(data.profile.changesPercentage);
 
   if (data.profile.changesPercentage.includes('-', 1)) {
@@ -145,11 +145,30 @@ function companyProfile(data) {
   appendChildren(divCompanyDescription, companyDescription);
   let divCompanyLink = document.querySelector('.company-link');
   let companyLinkATag = ElementCreator('a');
-  attributeSetter(companyLinkATag, 'class', 'a-tag-link-company');
+  companyLinkATag.classList = 'a-tag-link-company';
   companyLinkATag.href = data.profile.website;
   companyLinkATag.target = 'blank';
   appendChildren(divCompanyLink, companyLinkATag);
   let companyWebsiteATag = document.querySelector('.a-tag-link-company');
   let HomePage = createText('visit home-page >>');
   appendChildren(companyWebsiteATag, HomePage);
+}
+
+function hideElement(element) {
+  element.classList.add('d-none');
+}
+function ElementCreator(element) {
+  return document.createElement(element);
+}
+
+function createText(text) {
+  return document.createTextNode(text);
+}
+
+function appendChildren(parent, child) {
+  parent.appendChild(child);
+}
+
+function showElement(element) {
+  element.classList.remove('d-none');
 }

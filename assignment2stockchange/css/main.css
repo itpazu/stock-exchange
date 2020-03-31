@@ -9,7 +9,7 @@ body {
   background: linear-gradient(
     rgb(136, 145, 148) 0%,
     rgba(117, 182, 204, 1) 100%
-  )
+  );
 }
 .headline {
   font-family: cursive;
@@ -26,13 +26,14 @@ body {
   justify-content: space-between;
 }
 .list-group {
-  border-radius: 5%;
   box-shadow: 0 8px 12px 0 rgba(10, 8, 8, 0.5);
   background-color: rgb(240, 240, 240);
 }
+#list-search {
+  margin-bottom: 10vh;
+}
 #link-item {
-
-  font-size: 28px;
+  font-size: 20px;
   flex-basis: 50%;
   font-family: 'Times New Roman', Times, serif;
   font-family: cursive;
@@ -54,17 +55,14 @@ body {
   justify-content: space-between;
 }
 
-
-
 .div-symbol {
   flex-grow: 0.5;
 }
 
 .marquee-div {
-  height: 12vh;
+  height: 10vh;
   width: 100vw;
   animation: marquee-div 25s infinite linear 0.5s;
-
 }
 .marquee-div:hover {
   animation-play-state: paused;
@@ -79,7 +77,6 @@ body {
   height: auto;
   font-family: cursive;
   /* transform: translateX(100%); */
-
 }
 
 .li-marquee-item {

@@ -20,7 +20,6 @@ class Marquee {
   prepareMarqueeData(data) {
     data.forEach(element => {
       let divElementMarquee = this.ElementCreator('li');
-      console.log(divElementMarquee);
       divElementMarquee.classList = 'li-marquee-item';
       this.appendChildren(this.divMarquee, divElementMarquee);
       divElementMarquee.innerHTML = `${element.symbol}  <span style="color: green"> ${element.price}</span>`;
@@ -28,10 +27,6 @@ class Marquee {
   }
   ElementCreator(element) {
     return document.createElement(element);
-  }
-
-  createText(text) {
-    return document.createTextNode(text);
   }
 
   appendChildren(parent, child) {

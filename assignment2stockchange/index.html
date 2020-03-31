@@ -16,43 +16,45 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="main.css" />
-    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
   </head>
   <body>
     <div class="marquee-div">
       <ul class="marquee"></ul>
     </div>
     <div class="container">
-      <h1 class="headline">Search Nasdaq Stock</h1>
-      <div class="input-group mt-4 mb-5">
-        <input
-          type="text"
-          id="userSearch"
-          class="form-control user-search"
-          placeholder="company name"
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
-        />
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary search-btn" type="button">
-            search
-          </button>
+      <div class="form">
+        <h1 class="headline">Search Nasdaq Stock</h1>
+        <div class="input-group mt-2 mb-5">
+          <input
+            type="text"
+            id="userSearch"
+            class="form-control user-search"
+            placeholder="company name"
+            aria-label="Recipient's username"
+            aria-describedby="basic-addon2"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary search-btn" type="button">
+              search
+            </button>
+          </div>
+          <div
+            class="spinner-grow d-none"
+            id="spinner"
+            style="width: 3rem; height: 3rem;"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
         </div>
-        <div
-          class="spinner-grow d-none"
-          id="spinner"
-          style="width: 3rem; height: 3rem;"
-          role="status"
-        >
-          <span class="sr-only">Loading...</span>
-        </div>
+        <ul class="list-group list-group-flush" id="list-search"></ul>
       </div>
-      <ul class="list-group list-group-flush" id="list-search"></ul>
     </div>
-
-    <script src="marquee.js"></script>
-    <script src="main.js"></script>
-    <script src="eventlistener.js"></script>
+    <script src="/javascript/marquee.js"></script>
+    <script src="/javascript/results.js"></script>
+    <script src="/javascript/search.js"></script>
+    <script src="/javascript/eventlistener.js"></script>
   </body>
 </html>
