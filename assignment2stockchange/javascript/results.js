@@ -1,10 +1,11 @@
 class Results {
-  constructor(companies, element) {
+  constructor(companies, listSearch, inputBox) {
     this.companies = companies;
-    this.listSearch = document.querySelector('#list-search');
-    this.loadingSpinner = document.querySelector('#spinner');
+    this.inputBox = inputBox;
+    this.listSearch = listSearch;
+    this.formItem = document.querySelector('#form');
 
-    this.divPresentResult = element;
+    this.loadingSpinner = document.querySelector('#spinner');
     this.companies.forEach(company => {
       let listItem = this.ElementCreator('li');
       listItem.classList = 'list-group-item';
@@ -36,40 +37,55 @@ class Results {
       divCompanyName.classList = 'div-company';
       this.appendChildren(divArrayItem, divCompanyName);
 
-      let companyName = this.createText(`${company.profile.companyName} `);
-      this.appendChildren(divCompanyName, companyName);
+      let companyName = `${company.profile.companyName}`;
+      let searchedElement = searchObj.recordedSearch;
+      companyName = companyName.replace(new RegExp(searchedElement, 'gi'), match => {
+       return `<span class ="span-match">${match}</span>`;    
+      });
+      divCompanyName.innerHTML = companyName;
+
 
       let divCompanySymbolAndStockChange = this.ElementCreator('div');
-
       divCompanySymbolAndStockChange.classList = 'div-comapny-symbol-stock';
-
       this.appendChildren(listItem, divCompanySymbolAndStockChange);
 
       let divcompanySymbol = this.ElementCreator('div');
       divcompanySymbol.classList = 'div-symbol';
       this.appendChildren(divCompanySymbolAndStockChange, divcompanySymbol);
-      let companySymbol = this.createText(`(${company.symbol}) `);
-      this.appendChildren(divcompanySymbol, companySymbol);
 
+      let companySymbol = `${company.symbol}`;
+      companySymbol = companySymbol.replace(new RegExp(searchedElement, 'gi'), match => {
+       return `<span class ="span-match">${match}</span>`;   
+      });
+      divcompanySymbol.innerHTML = `(${companySymbol})`
+      
       let divcompanyStockChange = this.ElementCreator('div');
       divcompanyStockChange.classList = 'div-stock';
       this.appendChildren(
         divCompanySymbolAndStockChange,
         divcompanyStockChange
       );
+
       let companyStock = this.createText(
         `${company.profile.changesPercentage} `
       );
+
       this.appendChildren(
         divCompanySymbolAndStockChange,
         divcompanyStockChange
       );
+
       this.appendChildren(divcompanyStockChange, companyStock);
       this.changeColorForStockChange(
         company.profile.changesPercentage,
         divcompanyStockChange
       );
+
       this.hideElement(this.loadingSpinner);
+
+      if (searchObj.recordedSearch == '') {
+        listSearch.innerHTML = '';
+      }
     });
   }
   hideElement(element) {

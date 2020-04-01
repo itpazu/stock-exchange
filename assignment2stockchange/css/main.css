@@ -59,6 +59,10 @@ body {
   flex-grow: 0.5;
 }
 
+.span-match {
+  background-color: yellow;
+}
+
 .marquee-div {
   height: 10vh;
   width: 100vw;
