@@ -34,22 +34,23 @@ body {
 }
 #link-item {
   font-size: 20px;
-  flex-basis: 50%;
+  flex-basis: 40%;
   font-family: 'Times New Roman', Times, serif;
   font-family: cursive;
+  margin-left: 40px;
 }
-
+/* 
 .div-img {
   flex-basis: 25%;
-}
+} */
 
 .imgTag {
-  max-height: 25px;
+  max-height: 40px;
 }
 
 .div-comapny-symbol-stock {
   display: flex;
-  flex-basis: 25%;
+  flex-basis: 10%;
   align-items: center;
   text-align: right;
   justify-content: space-between;

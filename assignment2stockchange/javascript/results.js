@@ -4,7 +4,6 @@ class Results {
     this.inputBox = inputBox;
     this.listSearch = listSearch;
     this.formItem = document.querySelector('#form');
-
     this.loadingSpinner = document.querySelector('#spinner');
     this.companies.forEach(company => {
       let listItem = this.ElementCreator('li');
@@ -29,21 +28,19 @@ class Results {
       aItem.target = 'blank';
       this.appendChildren(listItem, aItem);
 
-      let divArrayItem = this.ElementCreator('div');
-      divArrayItem.classList = 'company-info-wrapper';
-      this.appendChildren(aItem, divArrayItem);
-
       let divCompanyName = this.ElementCreator('div');
       divCompanyName.classList = 'div-company';
-      this.appendChildren(divArrayItem, divCompanyName);
+      this.appendChildren(aItem, divCompanyName);
 
       let companyName = `${company.profile.companyName}`;
       let searchedElement = searchObj.recordedSearch;
-      companyName = companyName.replace(new RegExp(searchedElement, 'gi'), match => {
-       return `<span class ="span-match">${match}</span>`;    
-      });
+      companyName = companyName.replace(
+        new RegExp(searchedElement, 'gi'),
+        match => {
+          return `<span class ="span-match">${match}</span>`;
+        }
+      );
       divCompanyName.innerHTML = companyName;
-
 
       let divCompanySymbolAndStockChange = this.ElementCreator('div');
       divCompanySymbolAndStockChange.classList = 'div-comapny-symbol-stock';
@@ -54,11 +51,14 @@ class Results {
       this.appendChildren(divCompanySymbolAndStockChange, divcompanySymbol);
 
       let companySymbol = `${company.symbol}`;
-      companySymbol = companySymbol.replace(new RegExp(searchedElement, 'gi'), match => {
-       return `<span class ="span-match">${match}</span>`;   
-      });
-      divcompanySymbol.innerHTML = `(${companySymbol})`
-      
+      companySymbol = companySymbol.replace(
+        new RegExp(searchedElement, 'gi'),
+        match => {
+          return `<span class ="span-match">${match}</span>`;
+        }
+      );
+      divcompanySymbol.innerHTML = `(${companySymbol})`;
+
       let divcompanyStockChange = this.ElementCreator('div');
       divcompanyStockChange.classList = 'div-stock';
       this.appendChildren(
@@ -83,11 +83,31 @@ class Results {
 
       this.hideElement(this.loadingSpinner);
 
+      let btnCompare = this.ElementCreator('btn');
+      btnCompare.classList =
+        'btn btn-info ml-4 bt-compare d-flex justify-content-end btn-compare';
+      btnCompare.id = `${company.symbol}`;
+      btnCompare.innerHTML = 'compare';
+      this.appendChildren(listItem, btnCompare);
+
+      let butnEventListener = document.querySelectorAll('.btn-compare');
+      butnEventListener.forEach(btn =>
+        btn.addEventListener('click', this.lookIntoObject)
+      );
+
       if (searchObj.recordedSearch == '') {
         listSearch.innerHTML = '';
       }
     });
   }
+
+  lookIntoObject(e) {
+    let url = `https://financialmodelingprep.com/api/v3/company/profile/${e.target.id}`;
+    fetch(url)
+      .then(data => data.json())
+      .then(data => console.log(data.profile));
+  }
+
   hideElement(element) {
     element.classList.add('d-none');
   }
