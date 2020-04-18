@@ -11,6 +11,33 @@ body {
     rgba(117, 182, 204, 1) 100%
   );
 }
+.nav{
+  min-height: 40px;
+  height: fit-content;
+  background-color: rgba(212, 209, 209, 0.966);
+  
+
+  
+}
+
+
+.comp-comp-bt {
+  color: rgb(122, 120, 117);
+  text-decoration: underline;
+}
+
+.comp-comp-bt:hover {
+  background-color:  rgba(212, 209, 209, 0.966);
+  color: #0000EE ;
+  text-decoration: underline;
+
+}
+
+.comp-comp-js {
+  background-color:  rgba(212, 209, 209, 0.966);
+  color: #0000EE ;
+  text-decoration: underline;
+}
 .headline {
   font-family: cursive;
   text-align: center;

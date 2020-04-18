@@ -15,7 +15,7 @@ class Search {
     return await this.callServerForResults(url);
   }
   secondFetch(dataFirstFetch) {
-    let loopForData = dataFirstFetch.map(company => {
+    let loopForData = dataFirstFetch.map((company) => {
       this.urlSecondFetch = `https://financialmodelingprep.com/api/v3/company/profile/${company.symbol}`;
       return this.dataFetch(this.urlSecondFetch);
     });

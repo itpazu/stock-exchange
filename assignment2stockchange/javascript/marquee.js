@@ -18,7 +18,7 @@ class Marquee {
   }
 
   prepareMarqueeData(data) {
-    data.forEach(element => {
+    data.forEach((element) => {
       let divElementMarquee = this.ElementCreator('li');
       divElementMarquee.classList = 'li-marquee-item';
       this.appendChildren(this.divMarquee, divElementMarquee);

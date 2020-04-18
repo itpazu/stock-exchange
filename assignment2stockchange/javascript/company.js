@@ -1,26 +1,74 @@
 class Company {
-  constructor(companySymbol) {
+  constructor(companySymbol, parentEl) {
+    this.parentEl = parentEl;
+    this.spinnerTwo = document.querySelector('.spinner-two');
+
     this.urlCompanyNew = `https://financialmodelingprep.com/api/v3/company/profile/${companySymbol}`;
-    this.spinnerTwo = document.querySelector('#spinner-two');
-    //  this.canvasChart = document.querySelector('#chart');
     this.urlChart = `https://financialmodelingprep.com/api/v3/historical-price-full/${companySymbol}?serietype=line`;
-    this.backgroundImage = document.querySelector('.bkg-image');
+
+    this.backgroundImage = this.ElementCreator('div');
+    this.backgroundImage.classList = 'bkg-image';
+
     this.hideElement(this.backgroundImage);
-    this.divCompanyDescription = document.querySelector('.company-description');
-    this.divCompanySector = document.querySelector('.company-sector');
-    this.divcompanyName = document.querySelector('.company-name');
-    this.divCompanyImage = document.querySelector('.container-company-image');
-    this.divCompanyLink = document.querySelector('.company-link');
-    this.divStockPrice = document.querySelector('.company-stock');
+
+    this.divFlexCompany = this.ElementCreator('div');
+    this.divFlexCompany.classList = 'deflex';
+
+    this.divCompanyImage = this.ElementCreator('div');
+    this.divCompanyImage.classList = 'company-image';
+
+    this.divcompanyName = this.ElementCreator('div');
+    this.divcompanyName.classList = 'company-name';
+
+    this.divCompanySector = this.ElementCreator('div');
+    this.divCompanySector.classList = 'company-sector';
+
+    this.divStockPrice = this.ElementCreator('div');
+    this.divStockPrice.classList = 'company-stock';
+
+    this.divContDescription = this.ElementCreator('div');
+    this.divContDescription.classList = 'div-cont-description';
+
+    this.divCompanyDescription = this.ElementCreator('div');
+    this.divCompanyDescription.classList = 'company-description mb-4';
+
+    this.divCompanyLink = this.ElementCreator('div');
+    this.divCompanyLink.classList = 'company-link';
+
+    this.containerCanvas = this.ElementCreator('div');
+    this.containerCanvas.classList = 'container canvas-cont';
+
+    this.canvasChart = this.ElementCreator('canvas');
+    this.canvasChart.classList = 'chart col-12';
+    this.canvasChart.id = `canvas-${companySymbol}`;
+    this.canvasChart.setAttribute('width', '400');
+    this.canvasChart.setAttribute('height', '400');
+
+    this.appendChildren(this.parentEl, this.backgroundImage);
+    this.appendChildren(this.backgroundImage, this.divFlexCompany);
+    this.appendChildren(this.divFlexCompany, this.divCompanyImage);
+    this.appendChildren(this.divFlexCompany, this.divcompanyName);
+    this.appendChildren(this.divFlexCompany, this.divCompanySector);
+
+    this.appendChildren(this.backgroundImage, this.divStockPrice);
+
+    this.appendChildren(this.backgroundImage, this.divContDescription);
+    this.appendChildren(this.divContDescription, this.divCompanyDescription);
+    this.appendChildren(this.divContDescription, this.divCompanyLink);
+
+    this.appendChildren(this.backgroundImage, this.containerCanvas);
+    this.appendChildren(this.containerCanvas, this.canvasChart);
+    this.launcCompany(companySymbol);
   }
-  launcCompany() {
-    this.fetchCompanyProfile(this.urlCompanyNew).then(data => {
-      this.companyProfile(data);
+  launcCompany(companySymbol) {
+    this.fetchCompanyProfile(this.urlCompanyNew).then((data) => {
+      this.companyProfile(data, companySymbol);
+
       this.showElement(this.backgroundImage);
     });
 
-    this.fetchDataChart(this.urlChart).then(chartData => {
-      this.filterArrayChart(chartData);
+    this.fetchDataChart(this.urlChart).then((chartData) => {
+      this.filterArrayChart(chartData, companySymbol);
     });
   }
   async fetchCompanyProfile(url) {
@@ -33,11 +81,11 @@ class Company {
     const jsonUrlForFetchChart = await fetchChart.json();
     return jsonUrlForFetchChart;
   }
-  filterArrayChart(chartData) {
+  filterArrayChart(chartData, companySymbol) {
     let array = chartData.historical;
     let startDate = new Date('2015-01-06').getTime();
 
-    let result = array.filter(i => {
+    let result = array.filter((i) => {
       let time = new Date(i.date).getTime();
       return time > startDate;
     });
@@ -47,11 +95,11 @@ class Company {
       renderLables.push(result[i].date);
       renderDataSet.push(result[i].close);
     }
-    this.displayTable(renderLables, renderDataSet);
+    this.displayTable(renderLables, renderDataSet, companySymbol);
   }
-  displayTable(labels, datasets) {
-    let ctx = document.getElementById('chart');
-    let myChart = new Chart(ctx, {
+  displayTable(labels, datasets, companySymbol) {
+    let ctx = document.getElementById(`canvas-${companySymbol}`);
+    new Chart(ctx, {
       type: 'line',
       data: {
         labels: labels,
@@ -65,7 +113,7 @@ class Company {
               'rgba(255, 206, 86, 0.2)',
               'rgba(75, 192, 192, 0.2)',
               'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
+              'rgba(255, 159, 64, 0.2)',
             ],
             borderColor: [
               'rgba(66, 62, 70)',
@@ -73,12 +121,12 @@ class Company {
               'rgba(255, 206, 86, 1)',
               'rgba(75, 192, 192, 1)',
               'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
+              'rgba(255, 159, 64, 1)',
             ],
             borderWidth: 1,
-            borderCapStyle: 'round'
-          }
-        ]
+            borderCapStyle: 'round',
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -90,17 +138,18 @@ class Company {
               position: 'right',
 
               ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      }
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
     });
 
-    this.hideElement(this.spinnerTwo);
+    this.spinnerTwo.innerHTML =
+      '<div class="d-flex justify-content-center mt-5 spinner-two">';
   }
-  companyProfile(data) {
+  companyProfile(data, companySymbol) {
     let imgCompanyImage = this.ElementCreator('img');
     imgCompanyImage.classList = 'image-company';
     imgCompanyImage.src = data.profile.image;
@@ -137,13 +186,12 @@ class Company {
     let companyDescription = this.createText(data.profile.description);
     this.appendChildren(this.divCompanyDescription, companyDescription);
     let companyLinkATag = this.ElementCreator('a');
-    companyLinkATag.classList = 'a-tag-link-company';
+    companyLinkATag.classList = `a-tag-link-${companySymbol}`;
     companyLinkATag.href = data.profile.website;
     companyLinkATag.target = 'blank';
     this.appendChildren(this.divCompanyLink, companyLinkATag);
-    let companyWebsiteATag = document.querySelector('.a-tag-link-company');
-    let HomePage = this.createText('visit home-page >>');
-    this.appendChildren(companyWebsiteATag, HomePage);
+    let homePage = this.createText('visit home-page >>');
+    this.appendChildren(companyLinkATag, homePage);
   }
   hideElement(element) {
     element.classList.add('d-none');

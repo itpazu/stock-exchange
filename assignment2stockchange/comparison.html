@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>company</title>
+    <title>compare companies</title>
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -15,9 +16,10 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/company.css" />
     <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+    <link rel="stylesheet" href="/css/company.css" />
   </head>
+
   <body>
     <div class="d-flex justify-content-center mt-5 spinner-two">
       <div
@@ -28,11 +30,11 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div class="container cont-of-all mt-5">
-      <div class="row parent-element"></div>
-    </div>
-    <script src="/javascript/company.js"></script>
+    <div
+      class="container-fluid dom-parent d-flex justify-content-between"
+    ></div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="/javascript/callingcompany.js"></script>
+    <script src="/javascript/company.js"></script>
+    <script src="/javascript/comparison.js"></script>
   </body>
 </html>

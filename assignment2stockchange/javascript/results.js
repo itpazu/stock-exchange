@@ -4,8 +4,9 @@ class Results {
     this.inputBox = inputBox;
     this.listSearch = listSearch;
     this.formItem = document.querySelector('#form');
+    this.compareCompanyBtn = document.querySelector('#btn-comp-comp');
     this.loadingSpinner = document.querySelector('#spinner');
-    this.companies.forEach(company => {
+    this.companies.forEach((company) => {
       let listItem = this.ElementCreator('li');
       listItem.classList = 'list-group-item';
 
@@ -36,7 +37,7 @@ class Results {
       let searchedElement = searchObj.recordedSearch;
       companyName = companyName.replace(
         new RegExp(searchedElement, 'gi'),
-        match => {
+        (match) => {
           return `<span class ="span-match">${match}</span>`;
         }
       );
@@ -53,7 +54,7 @@ class Results {
       let companySymbol = `${company.symbol}`;
       companySymbol = companySymbol.replace(
         new RegExp(searchedElement, 'gi'),
-        match => {
+        (match) => {
           return `<span class ="span-match">${match}</span>`;
         }
       );
@@ -89,23 +90,11 @@ class Results {
       btnCompare.id = `${company.symbol}`;
       btnCompare.innerHTML = 'compare';
       this.appendChildren(listItem, btnCompare);
-
-      let butnEventListener = document.querySelectorAll('.btn-compare');
-      butnEventListener.forEach(btn =>
-        btn.addEventListener('click', this.lookIntoObject)
-      );
-
+      new Compare(company.symbol, btnCompare);
       if (searchObj.recordedSearch == '') {
         listSearch.innerHTML = '';
       }
     });
-  }
-
-  lookIntoObject(e) {
-    let url = `https://financialmodelingprep.com/api/v3/company/profile/${e.target.id}`;
-    fetch(url)
-      .then(data => data.json())
-      .then(data => console.log(data.profile));
   }
 
   hideElement(element) {
