@@ -1,20 +1,18 @@
 class Results {
-  constructor(companies, listSearch, inputBox) {
+  constructor(companies, listSearch, searchObj) {
+    this.searchObj = searchObj;
     this.companies = companies;
-    this.inputBox = inputBox;
     this.listSearch = listSearch;
-    this.formItem = document.querySelector('#form');
-    this.compareCompanyBtn = document.querySelector('#btn-comp-comp');
-    this.loadingSpinner = document.querySelector('#spinner');
+    this.loadingSpinner = searchObj.loadingSpinner;
     this.companies.forEach((company) => {
       let listItem = this.ElementCreator('li');
       listItem.classList = 'list-group-item';
-
       this.appendChildren(this.listSearch, listItem);
+
       let divImg = this.ElementCreator('div');
       divImg.classList = 'div-img';
-
       this.appendChildren(listItem, divImg);
+
       let imgItem = this.ElementCreator('img');
       imgItem.classList = 'imgTag';
       imgItem.src = company.profile.image;
@@ -25,16 +23,14 @@ class Results {
       aItem.id = 'link-item';
       aItem.classList = 'link-item';
       aItem.href = `company.html?symbol=${company.symbol}`;
-
       aItem.target = 'blank';
       this.appendChildren(listItem, aItem);
 
       let divCompanyName = this.ElementCreator('div');
       divCompanyName.classList = 'div-company';
       this.appendChildren(aItem, divCompanyName);
-
       let companyName = `${company.profile.companyName}`;
-      let searchedElement = searchObj.recordedSearch;
+      let searchedElement = this.searchObj.recordedSearch;
       companyName = companyName.replace(
         new RegExp(searchedElement, 'gi'),
         (match) => {
@@ -88,12 +84,9 @@ class Results {
       btnCompare.classList =
         'btn btn-info ml-4 bt-compare d-flex justify-content-end btn-compare';
       btnCompare.id = `${company.symbol}`;
-      btnCompare.innerHTML = 'compare';
+      btnCompare.textContent = 'compare';
       this.appendChildren(listItem, btnCompare);
       new Compare(company.symbol, btnCompare);
-      if (searchObj.recordedSearch == '') {
-        listSearch.innerHTML = '';
-      }
     });
   }
 

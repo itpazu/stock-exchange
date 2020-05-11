@@ -4,8 +4,8 @@
   const inputBox = document.querySelector('#userSearch');
   const listSearch = document.querySelector('#list-search');
 
-  let debounceTimeout;
   window.addEventListener('load', new Marquee(marquee));
+  let debounceTimeout;
   inputBox.addEventListener('keyup', () => {
     if (debounceTimeout) {
       clearTimeout(debounceTimeout);
@@ -15,11 +15,11 @@
   // console.log(searchBtn)
   searchBtn.addEventListener('click', clickFunc);
   async function clickFunc() {
-    searchObj = new Search(inputBox);
-    resultsfetchOne = await searchObj.dataFetch(searchObj.urlFirstFetch);
-    // console.log(resultsfetchOne)
-    resultsFetchTwo = await searchObj.secondFetch(resultsfetchOne);
-    resolveditems = await Promise.all(resultsFetchTwo);
-    searchResults = new Results(resolveditems, listSearch, inputBox);
+    const searchObj = new Search(inputBox); //stage 1- instantiates search
+    const resultsfetchOne = await searchObj.dataFetch(searchObj.urlFirstFetch); //calls first fetch
+    const resultsFetchTwo = searchObj.secondFetch(resultsfetchOne); //calss second fetch with results from first
+    console.log(resultsFetchTwo);
+    const resolveditems = await Promise.all(resultsFetchTwo); //resolves both fetches
+    const searchResults = new Results(resolveditems, listSearch, searchObj); //instantiates results
   }
 })();

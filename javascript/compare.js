@@ -12,14 +12,10 @@ class Compare {
         this.presentCompareBtn(this.companySymbol);
         Compare.count += 1;
         this.limitSameCompany = false;
-        console.log(Compare.count);
         Compare.arrayId.push(companySymbol);
-        this.updateNumberCompanyForConparison.innerHTML = ` ${Compare.count} companies`;
+        this.updateNumberCompanyForConparison.textContent = ` ${Compare.count} companies`;
         this.compareCompaniesBtn.href = `comparison.html?symbols=${Compare.arrayId[0]}%2C ${Compare.arrayId[1]}%2C ${Compare.arrayId[2]}`;
-        console.log(this.compareCompaniesBtn.href);
         this.compareCompaniesBtn.target = 'blank';
-        console.log(Compare.arrayId);
-        console.log(this.compareCompaniesBtn);
       } else {
         if (Compare.count === 3) {
           alert(
@@ -54,15 +50,13 @@ class Compare {
     this.appendChildren(this.btnContainer, this.btnCompareTop);
     this.appendChildren(this.btnCompareTop, this.buttonX);
     this.appendChildren(this.buttonX, this.spanBtn);
-    this.buttonXEvent = document.getElementById(symbol);
-    this.buttonXEvent.addEventListener('click', () => {
+
+    this.buttonX.addEventListener('click', () => {
       Compare.count -= 1;
       let indexToRemove = Compare.arrayId.indexOf(symbol);
       Compare.arrayId.splice(indexToRemove, 1);
-      console.log(Compare.arrayId);
-      console.log(Compare.count);
       this.compareCompaniesBtn.href = `comparison.html?symbols=${Compare.arrayId[0]}%2C ${Compare.arrayId[1]}%2C ${Compare.arrayId[2]}`;
-      this.updateNumberCompanyForConparison.innerHTML = ` ${Compare.count} companies`;
+      this.updateNumberCompanyForConparison.textContent = ` ${Compare.count} companies`;
       let btnRemove = document.querySelector(`.${symbol}`);
       this.btnContainer.removeChild(btnRemove);
       this.limitSameCompany = true;
