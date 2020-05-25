@@ -17,9 +17,11 @@
   async function clickFunc() {
     const searchObj = new Search(inputBox); //stage 1- instantiates search
     const resultsfetchOne = await searchObj.dataFetch(searchObj.urlFirstFetch); //calls first fetch
+    console.log(resultsfetchOne);
     const resultsFetchTwo = searchObj.secondFetch(resultsfetchOne); //calss second fetch with results from first
     console.log(resultsFetchTwo);
     const resolveditems = await Promise.all(resultsFetchTwo); //resolves both fetches
+    console.log(resolveditems);
     const searchResults = new Results(resolveditems, listSearch, searchObj); //instantiates results
   }
 })();

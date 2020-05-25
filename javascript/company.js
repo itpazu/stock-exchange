@@ -3,8 +3,8 @@ class Company {
     this.parentEl = parentEl;
     this.spinnerTwo = document.querySelector('.spinner-two');
 
-    this.urlCompanyNew = `https://financialmodelingprep.com/api/v3/company/profile/${companySymbol}`;
-    this.urlChart = `https://financialmodelingprep.com/api/v3/historical-price-full/${companySymbol}?serietype=line`;
+    this.urlCompanyNew = `https://financialmodelingprep.com/api/v3/company/profile/${company.symbol}?apikey=86a851a5c0c9c89fc725cb957e620229`;
+    this.urlChart = `https://financialmodelingprep.com/api/v3/historical-chart/1min/${companySymbol}?apikey=86a851a5c0c9c89fc725cb957e620229`;
 
     this.backgroundImage = this.ElementCreator('div');
     this.backgroundImage.classList = 'bkg-image';

@@ -1,7 +1,7 @@
 class Marquee {
   constructor(HTMLelement) {
     this.urlMarquee =
-      'https://financialmodelingprep.com/api/v3/stock/real-time-price';
+      'https://financialmodelingprep.com/api/v3/stock/real-time-price?apikey=86a851a5c0c9c89fc725cb957e620229';
     this.divMarquee = HTMLelement;
     this.fetchMarqueeInput(this.urlMarquee);
   }
